@@ -4,51 +4,41 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<br />
+<h2>Post details</h2>
+<br />
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Likes)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Likes)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<div class="container">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="text-right text-muted">
+                    Post id: @Model.Id <br>
+                    CreatedAt: @Model.CreatedAt
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="text-center">
+                    <h2>@Model.Title</h2>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+
+                    <div class="text-center">
+                        <div class="bot-border"></div>
+                        <h4>@Model.Body</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+
+                <div class="bot-border"></div>
+                <div class="text-center">
+                    <b>Created by:</b> @Html.ActionLink($"user{Model.UserId}", "Index", "User", new { id = Model.UserId })
+                    <br />
+                    <b>Likes:</b> @Model.Likes
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -12,6 +12,11 @@ namespace Lesson2_ASP.NET.Services
     {
         public static List<User> Users { get; set; }
 
+        static DBService()
+        {
+            Users = new List<User>();
+        }
+
         public static void Download()
         {
             var url = @"https://5b128555d50a5c0014ef1204.mockapi.io/";

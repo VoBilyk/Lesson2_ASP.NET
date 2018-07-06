@@ -2,47 +2,40 @@
 
 @{
     ViewData["Title"] = "Index";
+    string isComplete = Model.IsComplete ? "Completed" : "Uncompleted";
+    string color = Model.IsComplete ? "green" : "red";
 }
 
-<h2>Index</h2>
 
-<div>
-    <h4>Todo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsComplete)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsComplete)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
+<br />
+<h2>Todo details</h2>
+<br />
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="text-right text-muted">
+                    Todo id: @Model.Id <br>
+                    CreatedAt: @Model.CreatedAt
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="text-center">
+                    <h3>@Model.Name</h3>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+                    <div class="text-center">
+                        <div class="text-center"><font color="@color">@isComplete</font></div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="text-center">
+                    <b>Created by:</b> @Html.ActionLink($"user{Model.UserId}", "Index", "User", new { id = Model.UserId })
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
