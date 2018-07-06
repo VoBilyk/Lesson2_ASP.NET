@@ -19,7 +19,7 @@ namespace Lesson2_ASP.NET.Models
 
         public List<Todo> Todos { get; set; }
 
-        public List<Address> Addresses { get; set; }
+        public Address Address { get; set; }
 
 
         public override string ToString()

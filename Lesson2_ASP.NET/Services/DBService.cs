@@ -64,7 +64,7 @@ namespace Lesson2_ASP.NET.Services
             {
                 user.Todos = todos?.Where(t => t.UserId == user.Id).ToList();
                 user.Posts = posts?.Where(u => u.UserId == user.Id).ToList();
-                user.Addresses = addresses?.Where(a => a.UserId == user.Id).ToList();
+                user.Address = addresses?.FirstOrDefault(a => a.UserId == user.Id);
 
                 foreach (var post in user?.Posts)
                 {
