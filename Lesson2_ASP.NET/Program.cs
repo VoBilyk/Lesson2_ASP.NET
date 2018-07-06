@@ -16,7 +16,7 @@ namespace Lesson2_ASP.NET
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
-            DB.Download();
+            DBService.Download();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
