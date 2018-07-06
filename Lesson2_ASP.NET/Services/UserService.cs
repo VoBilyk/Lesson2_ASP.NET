@@ -15,7 +15,7 @@ namespace Lesson2_ASP.NET.Services
 
         private UserService()
         {
-            users = RemoteDB.Download();
+            users = DB.Users;
         }
 
 

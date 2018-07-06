@@ -1,4 +1,6 @@
-﻿namespace Lesson2_ASP.NET.Models
+﻿using System;
+
+namespace Lesson2_ASP.NET.Models
 {
     public class Comment
     {

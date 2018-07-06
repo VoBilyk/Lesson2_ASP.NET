@@ -8,25 +8,14 @@ using Lesson2_ASP.NET.Models;
 
 namespace Lesson2_ASP.NET.Services
 {
-    public class RemoteDB
+    public class DB
     {
-        public string CreateURL(string endpoint)
-        {
-            var possibleEndpoints = new string[] { "users", "posts", "comments", "todos", "address" };
-            if (!possibleEndpoints.Contains(endpoint))
-            {
-                throw new ArgumentException($"Endpoint can`t be {endpoint}");
-            }
+        public static List<User> Users { get; set; }
 
-            return @"https://5b128555d50a5c0014ef1204.mockapi.io/" + endpoint;
-        }
-
-
-        public static List<User> Download()
+        public static void Download()
         {
             var url = @"https://5b128555d50a5c0014ef1204.mockapi.io/";
-
-            List<User> users = null;
+            
             List<Post> posts = null;
             List<Todo> todos = null;
             List<Comment> comments = null;
@@ -39,7 +28,7 @@ namespace Lesson2_ASP.NET.Services
             if (usersResponse.IsSuccessStatusCode)
             {
                 string userJSON = usersResponse.Content.ReadAsStringAsync().Result;
-                users = JsonConvert.DeserializeObject<List<User>>(userJSON);
+                Users = JsonConvert.DeserializeObject<List<User>>(userJSON);
             }
 
             var postsResponse = client.GetAsync(url + "posts").Result;
@@ -71,19 +60,17 @@ namespace Lesson2_ASP.NET.Services
             }
             #endregion
 
-            foreach (var user in users)
+            foreach (var user in Users)
             {
-                user.Todos = todos.Where(t => t.UserId == user.Id).ToList();
-                user.Posts = posts.Where(u => u.UserId == user.Id).ToList();
-                user.Addresses = addresses.Where(a => a.UserId == user.Id).ToList();
+                user.Todos = todos?.Where(t => t.UserId == user.Id).ToList();
+                user.Posts = posts?.Where(u => u.UserId == user.Id).ToList();
+                user.Addresses = addresses?.Where(a => a.UserId == user.Id).ToList();
 
-                foreach (var post in user.Posts)
+                foreach (var post in user?.Posts)
                 {
-                    post.Comments = comments.Where(x => x.PostId == post.Id).ToList();
+                    post.Comments = comments?.Where(x => x.PostId == post.Id).ToList();
                 }
             }
-
-            return users;
         }
     }
 }

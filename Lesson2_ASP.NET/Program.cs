@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Lesson2_ASP.NET.Services;
 
 namespace Lesson2_ASP.NET
 {
@@ -15,6 +16,7 @@ namespace Lesson2_ASP.NET
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+            DB.Download();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
