@@ -8,7 +8,7 @@ using Lesson2_ASP.NET.Models;
 
 namespace Lesson2_ASP.NET.Services
 {
-    public class DB
+    public class DBService
     {
         public static List<User> Users { get; set; }
 
