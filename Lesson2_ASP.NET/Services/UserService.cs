@@ -15,7 +15,7 @@ namespace Lesson2_ASP.NET.Services
 
         private UserService()
         {
-            users = DB.Users;
+            users = DBService.Users;
         }
 
 
