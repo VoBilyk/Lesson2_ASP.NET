@@ -18,6 +18,28 @@ namespace Lesson2_ASP.NET.Services
             users = DBService.Users;
         }
 
+        public User GetUser(int id) => users.FirstOrDefault(u => u.Id.Equals(id));
+
+        public Post GetPost(int id)
+        {
+            var post = (from u in users
+                        from p in u.Posts
+                        where p.Id == id
+                        select p).FirstOrDefault();
+
+            return post;
+        }
+
+        public Todo GetTodo(int id)
+        {
+            var todo = (from u in users
+                        from t in u.Todos
+                        where t.Id == id
+                        select t).FirstOrDefault();
+
+            return todo;
+        }
+
 
         public IEnumerable<(Post Post, int CommentNumber)> GetCommentNumberByUserPosts(int userId)
         {
@@ -58,10 +80,7 @@ namespace Lesson2_ASP.NET.Services
 
         public PostInfo GetPostInfo(int postId)
         {
-            var post = (from u in users
-                        from p in u.Posts
-                        where p.Id == postId
-                        select p).FirstOrDefault();
+            var post = GetPost(postId);
 
             var theLongestComment = post?.Comments.OrderByDescending(c => c.Body).FirstOrDefault();
             var theMostLikedComment = post?.Comments.OrderByDescending(c => c.Likes).FirstOrDefault();
