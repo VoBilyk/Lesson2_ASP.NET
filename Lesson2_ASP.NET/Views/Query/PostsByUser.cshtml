@@ -25,7 +25,7 @@
                 <caption class="text-center">Table of user posts and number comments to these posts</caption>
                 <thead>
                     <tr>
-                        <th style="width:70%">Posts</th>
+                        <th class="text-center" style="width:70%; vertical-align:middle">Posts</th>
                         <th class="text-center" style="width:30%">Comments number</th>
                     </tr>
                 </thead>
@@ -36,7 +36,7 @@
 
                         <tr>
                             <td>
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal text-left">
                                     <dt>Title:</dt>
                                     <dd>@Html.ActionLink($"{item.post.Title}", "index", "post", new { id = item.post.Id })</dd>
 
