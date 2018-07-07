@@ -10,53 +10,55 @@
 <br />
 
 <div class="container">
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading ">
-                <div class="text-right text-muted">
-                    User id: @Model.Id <br>
-                    Registered: @Model.CreatedAt
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="col-sm-5">
-                    <div align="center">
-                        <img alt="Avatar" src="@Model.Avatar" width="150" height="150" class="img-circle img-responsive">
+    <div align="center">
+        <div style="width:50%">
+            <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <div class="text-right text-muted">
+                        User id: @Model.Id <br>
+                        Registered: @Model.CreatedAt
                     </div>
-                    <br>
                 </div>
-                <div class="col-sm-6 text-center">
-                    <h2 style="color:brown">@Model.Name</h2>
-                    @Model.Email
-                    <br />
-                    <br /> Posts: @Model.Posts.Count
-                    <br /> Todos: @Model.Todos.Count
-                </div>
-
-                @if (Model.Address != null)
-                {
-                    <div class="clearfix"></div>
-                    <hr style="margin:5px 0 5px 0;">
-
-                    <div class="text-center">
-                        <h4>Address:</h4>
-                        <div class="bot-border"></div>
-                        <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.Country)</div>
-                        <div class="col-sm-7">@Html.DisplayFor(model => model.Address.Country)</div>
-
-                        <div class="bot-border"></div>
-                        <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.City)</div>
-                        <div class="col-sm-7">@Html.DisplayFor(model => model.Address.City)</div>
-
-                        <div class="bot-border"></div>
-                        <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.Street)</div>
-                        <div class="col-sm-7">@Html.DisplayFor(model => model.Address.Street)</div>
-
-                        <div class="bot-border"></div>
-                        <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.Zip)</div>
-                        <div class="col-sm-7">@Html.DisplayFor(model => model.Address.Zip)</div>
+                <div class="panel-body">
+                    <div class="col-sm-5">
+                        <div align="center">
+                            <img alt="Avatar" src="@Model.Avatar" width="150" height="150" class="img-circle img-responsive">
+                        </div>
+                        <br>
                     </div>
-                }
+                    <div class="col-sm-6 text-center">
+                        <h2 style="color:brown">@Model.Name</h2>
+                        @Model.Email
+                        <br />
+                        <br /> Posts: @Model.Posts.Count
+                        <br /> Todos: @Model.Todos.Count
+                    </div>
+
+                    @if (Model.Address != null)
+                    {
+                        <div class="clearfix"></div>
+                        <hr style="margin:5px 0 5px 0;">
+
+                        <div class="text-center">
+                            <h4>Address:</h4>
+                            <div class="bot-border"></div>
+                            <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.Country)</div>
+                            <div class="col-sm-7">@Html.DisplayFor(model => model.Address.Country)</div>
+
+                            <div class="bot-border"></div>
+                            <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.City)</div>
+                            <div class="col-sm-7">@Html.DisplayFor(model => model.Address.City)</div>
+
+                            <div class="bot-border"></div>
+                            <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.Street)</div>
+                            <div class="col-sm-7">@Html.DisplayFor(model => model.Address.Street)</div>
+
+                            <div class="bot-border"></div>
+                            <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => model.Address.Zip)</div>
+                            <div class="col-sm-7">@Html.DisplayFor(model => model.Address.Zip)</div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
