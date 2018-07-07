@@ -48,10 +48,17 @@ namespace Lesson2_ASP.NET.Services
 
         public IEnumerable<Comment> GetCommentsByUserPosts(int userId)
         {
-            var postComments = from post in users.FirstOrDefault(u => u.Id == userId)?.Posts
-                               from comment in post.Comments
-                               where comment.Body.Length < 50
-                               select comment;
+            var user = GetUser(userId);
+
+            if(user == null)
+            {
+                return null;
+            }
+
+            var postComments = from post in user?.Posts
+                                from comment in post?.Comments
+                                where comment.Body.Length < 50
+                                select comment;
 
             return postComments;
         }
