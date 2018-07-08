@@ -1,0 +1,156 @@
+﻿@model UserInfo
+
+@{
+    ViewData["Title"] = "UserInfo";
+}
+
+
+<div class="container">
+    <div class="form-inline">
+        <br />
+        @using (Html.BeginForm())
+        {
+            <label>Enter userId:</label><br />
+            <input type="number" class="form-control" name="id" />
+            <button type="submit" class="btn btn-primary mb-2">Find</button>
+        }
+        <h5 class="text-danger">@ViewBag.Success</h5>
+    </div>
+
+    @if (Model.User != null)
+    {
+        <div align="center">
+            <div class="" style="max-width:50%">
+                <br />
+                <h3 class="text-center navbar-text text-muted">PostInfo</h3>
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <div class="text-right text-muted">
+                            <p>User id: @Model.User.Id</p>
+                            <p>Registered: @Model.User.CreatedAt</p>
+                        </div>
+                    </div>
+                    <div class="panel-body" align="left">
+                        <div class="col-sm-5">
+                            <div align="center">
+                                <img alt="Avatar" src="@Model.User.Avatar" width="150" height="150" class="img-circle img-responsive">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-sm-6 text-center">
+                            <h3>@Html.ActionLink(Model.User.Name, "index", "user", new { id = Model.User.Id })</h3>
+                            <p>@Model.User.Email</p> <br />
+                            <p>Unfinished todos: @Model.UnfinishedTodoNumber</p>
+                            <p>Comments to last post: @Model.CommentNumberByLastPost</p>
+                        </div>
+
+                        @if (Model.User.Address != null)
+                        {
+                            Address address = Model.User.Address;
+
+                            <div class="clearfix"></div>
+                            <hr style="margin:5px 0 5px 0;">
+
+                            <div class="text-center">
+                                <h4>Address:</h4>
+                                <div class="bot-border"></div>
+                                <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => address.Country)</div>
+                                <div class="col-sm-7">@Html.DisplayFor(model => address.Country)</div>
+
+                                <div class="bot-border"></div>
+                                <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => address.City)</div>
+                                <div class="col-sm-7">@Html.DisplayFor(model => address.City)</div>
+
+                                <div class="bot-border"></div>
+                                <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => address.Street)</div>
+                                <div class="col-sm-7">@Html.DisplayFor(model => address.Street)</div>
+
+                                <div class="bot-border"></div>
+                                <div class="col-sm-5 col-xs-6 tital" style="font-weight:bold">@Html.DisplayNameFor(model => address.Zip)</div>
+                                <div class="col-sm-7">@Html.DisplayFor(model => address.Zip)</div>
+                            </div>
+                        }
+
+                        <div class="clearfix"></div>
+                        <hr style="margin:5px 0 5px 0;">
+
+                        @if (Model.LastPost != null)
+                        {
+                            Post lastPost = Model.LastPost;
+
+                            <div>
+                                <button type="button" class="btn btn-group-justified" data-toggle="collapse" data-target="#last-post">Last post</button>
+                                <div id="last-post" class="collapse">
+                                    <br />
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><b>@Html.ActionLink(lastPost.Title, "index", "post", new { id = lastPost.Id })</b></div>
+                                        <div class="panel-body">
+                                            <p>@lastPost.Body</p>
+                                        </div>
+                                        <div class="panel-footer text-muted">
+                                            <p>Comments: @lastPost.Comments.Count</p>
+                                            <p>Likes: @lastPost.Likes</p>
+                                            <p>Created at: @lastPost.CreatedAt</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.TheMostPopularPostByLikes != null)
+                        {
+                            Post likedPost = Model.TheMostPopularPostByLikes;
+
+                            <div>
+                                <hr style="margin:5px 0 5px 0;">
+                                <button type="button" class="btn btn-group-justified" data-toggle="collapse" data-target="#liked-post">Most liked post</button>
+                                <div id="liked-post" class="collapse">
+                                    <br />
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><b>@Html.ActionLink(likedPost.Title, "index", "post", new { id = likedPost.Id })</b></div>
+                                        <div class="panel-body">
+                                            <p>@likedPost.Body</p>
+                                        </div>
+                                        <div class="panel-footer text-muted">
+                                            <p>Comments: @likedPost.Comments.Count</p>
+                                            <p>Likes: @likedPost.Likes</p>
+                                            <p>Created at: @likedPost.CreatedAt</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.TheMostPopularPostByComments != null)
+                        {
+                            Post commentedPost = Model.TheMostPopularPostByComments;
+
+                            <div>
+                                <hr style="margin:5px 0 5px 0;">
+                                <button type="button" class="btn btn-group-justified" data-toggle="collapse" data-target="#commented-post">Most commented post</button>
+                                <div id="commented-post" class="collapse">
+                                    <br />
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><b>@Html.ActionLink(commentedPost.Title, "index", "post", new { id = commentedPost.Id })</b></div>
+                                        <div class="panel-body">
+                                            <p>@commentedPost.Body</p>
+                                        </div>
+                                        <div class="panel-footer text-muted">
+                                            <p>Comments: @commentedPost.Comments.Count</p>
+                                            <p>Likes: @commentedPost.Likes</p>
+                                            <p>Created at: @commentedPost.CreatedAt</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+

@@ -1,0 +1,46 @@
+﻿@model Lesson2_ASP.NET.Models.Post
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2>Post details</h2>
+<br />
+
+<div class="container">
+    <div align="center">
+        <div style="width:50%">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="text-right text-muted">
+                        Post id: @Model.Id <br>
+                        CreatedAt: @Model.CreatedAt
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <h2>@Model.Title</h2>
+                        <div class="clearfix"></div>
+                        <hr style="margin:5px 0 5px 0;">
+
+                        <div class="text-center">
+                            <div class="bot-border"></div>
+                            <h4>@Model.Body</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+
+                    <div class="bot-border"></div>
+                    <div class="text-center">
+                        <b>Created by:</b> @Html.ActionLink($"user{Model.UserId}", "Index", "User", new { id = Model.UserId })
+                        <br />
+                        <b>Likes:</b> @Model.Likes
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

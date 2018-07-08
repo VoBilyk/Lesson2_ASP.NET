@@ -1,0 +1,49 @@
+﻿@model List<(int Id, string Name)>;
+
+@{
+    ViewData["Title"] = "FinishedTodosByUser";
+}
+
+<div class="container">
+    <div class="form-inline">
+        <br />
+        @using (Html.BeginForm())
+        {
+            <label>Enter userId:</label><br />
+            <input type="number" class="form-control" name="id" />
+            <button type="submit" class="btn btn-primary mb-2">Find</button>
+        }
+
+        <h5 class="text-danger">@ViewBag.Success</h5>
+    </div>
+
+    @if (Model != null && Model.Count != 0)
+    {
+        <div align="center">
+            <br />
+            <table class="table table-bordered table-striped table-responsive" style="max-width:50%">
+                <caption class="text-center">Table of user todos which is finished</caption>
+                <thead>
+                    <tr>
+                        <th class="text-center">Id</th>
+                        <th class="text-center">Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var todo in Model)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @todo.Id
+                            </td>
+                            <td class="text-center">
+                                @Html.ActionLink($"{todo.Name}", "index", "todo", new { id = todo.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+

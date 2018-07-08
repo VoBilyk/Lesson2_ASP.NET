@@ -1,0 +1,42 @@
+﻿@model Lesson2_ASP.NET.Models.Todo
+
+@{
+    ViewData["Title"] = "Index";
+    string isComplete = Model.IsComplete ? "Completed" : "Uncompleted";
+    string color = Model.IsComplete ? "green" : "red";
+}
+
+
+<br />
+<h2>Todo details</h2>
+<br />
+
+<div class="container">
+    <div align="center">
+        <div style="width:50%">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="text-right text-muted">
+                        Todo id: @Model.Id <br>
+                        CreatedAt: @Model.CreatedAt
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <h3>@Model.Name</h3>
+                        <div class="clearfix"></div>
+                        <hr style="margin:5px 0 5px 0;">
+                        <div class="text-center">
+                            <div class="text-center"><font color="@color">@isComplete</font></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="text-center">
+                        <b>Created by:</b> @Html.ActionLink($"user{Model.UserId}", "Index", "User", new { id = Model.UserId })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

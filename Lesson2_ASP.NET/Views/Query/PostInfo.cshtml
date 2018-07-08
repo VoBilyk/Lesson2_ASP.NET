@@ -1,0 +1,93 @@
+﻿@model PostInfo
+
+@{
+    ViewData["Title"] = "PostInfo";
+}
+
+
+<div class="container">
+    <div class="form-inline">
+        <br />
+        @using (Html.BeginForm())
+        {
+            <label>Enter postId:</label><br />
+            <input type="number" class="form-control" name="id" />
+            <button type="submit" class="btn btn-primary mb-2">Find</button>
+        }
+        <h5 class="text-danger">@ViewBag.Success</h5>
+    </div>
+
+    @if (Model.Post != null)
+    {
+        <div align="center">
+            <div class="" style="max-width:50%">
+                <br />
+                <h3 class="text-center navbar-text text-muted">PostInfo</h3>
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <div class="text-right text-muted">
+                            <p>User id: @Model.Post.Id</p>
+                            <p>Registered: @Model.Post.CreatedAt</p>
+                        </div>
+                    </div>
+                    <div class="panel-body" align="left">
+                        <div class="text-center">
+                            <h3>@Html.ActionLink(Model.Post.Title, "index", "post", new { id = Model.Post.Id })</h3>
+                            <p>@Model.Post.Body</p> <br />
+                            <p class="text-left text-muted">Likes: @Model.Post.Likes</p>
+                        </div>
+
+                        @if (Model.TheLongestComment != null)
+                        {
+                            Comment lastPost = Model.TheLongestComment;
+
+                        <div>
+                            <div class="clearfix"></div>
+                            <hr style="margin:5px 0 5px 0;">
+                            <button type="button" class="btn btn-group-justified" data-toggle="collapse" data-target="#longestComment">Longest comment</button>
+                            <div id="longestComment" class="collapse">
+                                <br />
+                                <blockquote style="font-size:unset">
+                                    <p>@lastPost.Body</p>
+                                    <p class="text-muted">Liked: @lastPost.Likes</p>
+                                    <footer>created at: @lastPost.CreatedAt</footer>
+                                    <footer>
+                                        useId: @Html.ActionLink($"user{lastPost.UserId}", "index", "user", new { id = lastPost.UserId })
+                                    </footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                        }
+
+                        @if (Model.TheMostLikedComment != null)
+                        {
+                            Comment likedComment = Model.TheMostLikedComment;
+
+                            <div>
+                                <div class="clearfix"></div>
+                                <hr style="margin:5px 0 5px 0;">
+
+                                <button type="button" class="btn btn-group-justified" data-toggle="collapse" data-target="#likedComment">Most liked comment</button>
+                                <div id="likedComment" class="collapse">
+                                    <br />
+                                    <blockquote style="font-size:unset">
+                                        <p>@likedComment.Body</p>
+                                        <p class="text-muted">Liked: @likedComment.Likes</p>
+                                        <footer>created at: @likedComment.CreatedAt</footer>
+                                        <footer>
+                                            useId: @Html.ActionLink($"user{likedComment.UserId}", "index", "user", new { id = likedComment.UserId })
+                                        </footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+

@@ -1,0 +1,62 @@
+﻿@model List<Comment>
+
+@{
+    ViewData["Title"] = "CommentsByUser";
+}
+
+
+<div class="container">
+    <div class="form-inline">
+        <br />
+        @using (Html.BeginForm())
+        {
+            <label>Enter userId:</label><br />
+            <input type="number" class="form-control" name="id" />
+            <button type="submit" class="btn btn-primary mb-2">Find</button>
+        }
+
+        <h5 class="text-danger">@ViewBag.Success</h5>
+    </div>
+
+    @if (Model != null && Model.Count != 0)
+    {
+        <div align="center">
+            <br />
+            <table class="table table-bordered table-striped table-responsive" style="max-width:50%">
+                <caption class="text-center">Table of comments to user posts</caption>
+                <thead>
+                    <tr>
+                        <th class="text-center">Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var comment in Model)
+                    {
+                        <tr>
+                            <td>
+                                <dl class="dl-horizonta">
+                                    <dt>Body:</dt>
+                                    <dd>@comment.Body</dd>
+
+                                    <dt>Likes:</dt>
+                                    <dd>@comment.Likes</dd>
+
+                                    <dt>Created at:</dt>
+                                    <dd>@comment.CreatedAt</dd>
+
+                                    <dt>User id:</dt>
+                                    <dd>@Html.ActionLink($"user{comment.UserId}", "index", "user", new { id = comment.UserId })</dd>
+
+                                    <dt>Post id:</dt>
+                                    <dd>@Html.ActionLink($"post{comment.PostId}", "index", "post", new { id = comment.PostId })</dd>
+                                </dl>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+

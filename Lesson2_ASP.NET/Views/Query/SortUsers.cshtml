@@ -1,0 +1,65 @@
+﻿@model List<User>;
+
+@{
+    ViewData["Title"] = "SortUsers";
+}
+
+<div class="container">
+
+    @if (Model != null && Model.Count != 0)
+    {
+        <div align="center">
+            <br />
+            <table class="table table-bordered table-striped table-responsive" style="max-width:40%">
+                <caption class="text-center">Table of sorted users in alphabet order and them todos</caption>
+                <thead>
+                    <tr>
+                        <th>Users</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        var collapseLink = $"user-todos{user.Id}";
+
+                        <tr>
+                            <td>
+                                <dl class="dl-horizontal">
+                                    <dd>
+                                        <img alt="Avatar" src="@user.Avatar" width="100" height="100" class="img-circle img-responsive">
+                                    </dd>
+                                    <dt>Name:</dt>
+                                    <dd>@Html.ActionLink(user.Name, "index", "user", new { id = user.Id})</dd>
+
+                                    <dt>Email:</dt>
+                                    <dd>@user.Email</dd>
+
+                                    <dt>Created at:</dt>
+                                    <dd>@user.CreatedAt</dd>
+                                </dl>
+
+                                <button type="button" class="btn btn-group-sm" data-toggle="collapse" data-target="#@collapseLink">Todos (@user.Todos.Count)</button>
+                                <div id="@collapseLink" class="collapse">
+                                    <br />
+                                    <table class="table table-bordered">
+                                        @foreach (var todo in user.Todos)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <blockquote style="font-size:unset">
+                                                        <p>@Html.ActionLink(todo.Name, "index", "user", new { id = todo.Id })</p>
+                                                        <p class="text-muted">Finished: @todo.IsComplete</p>
+                                                        <footer>created at @todo.CreatedAt</footer>
+                                                    </blockquote>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

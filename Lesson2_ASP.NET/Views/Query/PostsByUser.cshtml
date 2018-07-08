@@ -1,0 +1,85 @@
+﻿@model List<(Post post, int number)>;
+
+@{
+    ViewData["Title"] = "PostsByUser";
+}
+
+<div class="container">
+    <div class="form-inline">
+        <br />
+        @using (Html.BeginForm())
+        {
+            <label>Enter userId:</label><br />
+            <input type="number" class="form-control" name="id" />
+            <button type="submit" class="btn btn-primary mb-2">Find</button>
+        }
+
+        <h5 class="text-danger">@ViewBag.Success</h5>
+    </div>
+
+    @if (Model != null && Model.Count != 0)
+    {
+        <div align="center">
+            <br />
+            <table class="table table-bordered table-striped table-responsive" style="max-width:50%">
+                <caption class="text-center">Table of user posts and number comments to these posts</caption>
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width:70%; vertical-align:middle">Posts</th>
+                        <th class="text-center" style="width:30%">Comments number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var collapseLink = $"post-comment{item.post.Id}";
+
+                        <tr>
+                            <td>
+                                <dl class="dl-horizontal text-left">
+                                    <dt>Title:</dt>
+                                    <dd>@Html.ActionLink($"{item.post.Title}", "index", "post", new { id = item.post.Id })</dd>
+
+                                    <dt>Body:</dt>
+                                    <dd>@item.post.Body</dd>
+
+                                    <dt>Likes:</dt>
+                                    <dd>@item.post.Likes</dd>
+
+                                    <dt>Created at:</dt>
+                                    <dd>@item.post.CreatedAt</dd>
+
+                                    <dt>User id:</dt>
+                                    <dd>@Html.ActionLink($"user{item.post.UserId}", "index", "user", new { id = item.post.UserId })</dd>
+                                </dl>
+                            
+                                <button type="button" class="btn btn-group-sm" data-toggle="collapse" data-target="#@collapseLink">Comments (@item.number)</button>
+                                <div id="@collapseLink" class="collapse">
+                                    <br />
+                                    <table class="table table-bordered">
+                                        @foreach (var comment in item.post.Comments)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <blockquote style="font-size:unset">
+                                                        <p>@comment.Body</p>
+                                                        <p class="text-muted">Liked: @comment.Likes</p>
+                                                        <footer>created at: @comment.CreatedAt</footer>
+                                                        <footer>useId: @Html.ActionLink($"user{comment.UserId}", "index", "user", new { id = comment.UserId })
+                                                        </footer>
+                                                    </blockquote>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </td>
+
+                            <td class="text-info text-center">@item.number</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
