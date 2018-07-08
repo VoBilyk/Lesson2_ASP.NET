@@ -1,0 +1,22 @@
+﻿@model List<Comment>
+
+
+@foreach (var comment in Model?.OrderBy(c => c.CreatedAt))
+{
+    var commentator = Lesson2_ASP.NET.Services.UserService.Instance.GetUser(comment.UserId);
+
+    <!-- Comments -->
+    <ul class="simpleListings comments" style="list-style-type:none">
+        <li class="list-unstyled">
+            <a href="#" title="#" class="image">
+                <img src="@commentator.Avatar" alt="avatar" width="44" height="44">
+            </a>
+
+            <div class="c">
+                <div class="title">@Html.ActionLink(commentator.Name, "index", "user", new { id = commentator.Id })</div>
+                <div class="info">@comment.CreatedAt</div>
+                <p>@comment.Body</p>
+            </div>
+        </li>
+    </ul>
+}
