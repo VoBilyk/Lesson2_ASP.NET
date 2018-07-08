@@ -5,150 +5,149 @@
 }
 
 
+<div class="container">
+    <div class="col-md-8 col-md-offset-3">
+        <div class="page-people-directory">
+            <div class="row">
 
-
-<div class="col-md-10">
-    <div class="page-people-directory">
-        <div class="row">
-
-            <div class="col-md-9">
-                <div class="well">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <input type="text" placeholder="Search people" class="form-control">
+                <div class="col-md-9">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Search people" class="form-control">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>All Users</h3>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>All Users</h3>
+                        </div>
                     </div>
-                </div>
 
-                @foreach (var user in Model)
-                {
-                    <div class="list-group contact-group">
-                        <a href="#" class="list-group-item">
-                            <div class="media">
-                                <div class="pull-left">
-                                    <img class="img-circle" src="@user.Avatar" alt="avatar">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><big>@user.Name</big> <small>@user.CreatedAt</small></h4>
-                                    <div class="media-content">
-                                        @if (user.Address != null)
-                                        {
-                                            <div><i class="glyphicon glyphicon-map-marker"></i> @user.Address.Street, @user.Address.City, @user.Address.Country</div>
-                                            <div><i class="glyphicon glyphicon-envelope"></i> @user.Email</div>
-                                        }
+                    @foreach (var user in Model)
+                    {
+                        string moreDetailLink = $"more-detail-{user.Id}";
+                        string todosTab = $"todos-tab-{user.Id}";
+                        string postsTab = $"posts-tab-{user.Id}";
 
-                                        <ul class="list-unstyled">
-                                            <li><i class="glyphicon glyphicon-list"></i> todos: @user.Todos.Count</li>
-                                            <li><i class="glyphicon glyphicon-edit"></i> posts: @user.Posts.Count</li>
-                                        </ul>
+
+                        <div class="list-group contact-group">
+                            <a href="#@moreDetailLink" data-toggle="collapse" class="list-group-item">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <img class="img-circle" src="@user.Avatar" alt="avatar">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><big>@user.Name</big> <small>@user.CreatedAt</small></h4>
+                                        <div class="media-content">
+                                            @if (user.Address != null)
+                                            {
+                                                <div><i class="glyphicon glyphicon-map-marker"></i> @user.Address.Street, @user.Address.City, @user.Address.Country</div>
+                                                <div><i class="glyphicon glyphicon-envelope"></i> @user.Email</div>
+                                            }
+                                            <ul class="list-unstyled">
+                                                <li><i class="glyphicon glyphicon-list"></i> todos: @user.Todos.Count</li>
+                                                <li><i class="glyphicon glyphicon-edit"></i> posts: @user.Posts.Count</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
 
-                    <!-- Personal information -->
-                    <div class="container">
+                            <br />
+                            <div id="@moreDetailLink" class="collapse">
 
-                        <div>
+                                <!-- Personal information -->
+                                <div class="container" style="width:auto">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <h2 class="boxTitle text-center">Personal information</h2>
+                                            <!-- Tabs -->
+                                            <ul class="nav nav-tabs userProfileTabs" role="tablist">
+                                                <li class="" role="presentation"><a href="#@todosTab" aria-controls="@todosTab" role="tab" data-toggle="tab">Todos</a></li>
+                                                <li role="presentation" class="active"><a href="#@postsTab" aria-controls="@postsTab" role="tab" data-toggle="tab">Posts</a></li>
+                                            </ul>
 
-                            <div class="col-md-7">
-                                <div class="box">
-                                    <h2 class="boxTitle">Personal information</h2>
-                                    <!-- Tabs -->
-                                    <ul class="nav nav-tabs userProfileTabs" role="tablist">
-                                        <li role="presentation" class=""><a href="#tab-item-1" aria-controls="tab-item-1" role="tab" data-toggle="tab" aria-expanded="true">Posts</a></li>
-                                        <li role="presentation" class="active"><a href="#tab-item-2" aria-controls="tab-item-2" role="tab" data-toggle="tab" aria-expanded="false">Todos</a></li>
-                                    </ul>
+                                            <div class="tab-content">
+                                                <!-- Todos -->
+                                                <br />
+                                                <div role="tabpanel" class="tab-pane fade" id="@todosTab">
+                                                    <div class="userProfileContent">
+                                                        <div class="i">
+                                                            <ul class="simpleListings">
 
-                                    <div class="tab-content">
-                                        <!-- Todos -->
-                                        <br />
-                                        <div role="tabpanel" class="tab-pane fade" id="tab-item-1">
-                                            <div class="userProfileContent">
-                                                <div class="i">
-                                                    <ul class="simpleListings">
-                                                        <li>
-                                                            <div class="title">Jr. Web designer <span>(3 years)</span></div>
-                                                            <div class="info">29th May 2007 - 21st Sep 2010 at <a href="#" title="#" class="text-orange">Alkajda.com</a></div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel sapien at risus commodo varius vel ut sapien. Aenean sodales non ex et venenatis. In hac habitasse platea dictumst.</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                                @foreach (var todo in user.Todos)
+                                                                {
+                                                                    <li>
+                                                                        <div class="title">@Html.ActionLink(todo.Name, "index", "todo", todo)</div>
+                                                                        <div class="info">@todo.CreatedAt</div>
+                                                                        <p>Completed: @todo.IsComplete</p>
+                                                                    </li>
+                                                                }
 
-                                        <!-- Posts -->
-                                        <div role="tabpanel" class="tab-pane fade active in" id="tab-item-2">
-                                            <div class="userActivities">
-                                                <div class="i">
-                                                    <div class="activityContent">
-                                                        <ul class="simpleListings status">
-                                                            <li>
-                                                                <a href="#" title="#" class="itemOptions"><i class="fa fa-cog"></i></a>
-                                                                <div class="title">
-                                                                    <a href="#" title="#">Alicia Vouptates</a>
-                                                                </div>
-                                                                <div class="info">6 hours ago</div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel sapien at risus commodo varius vel ut sapien. Aenean sodales non ex et venenatis. In hac habitasse platea dictumst. Donec vitae tellus non erat dapibus hendrerit. Class aptent taciti <strong>bold text lorem ipsum</strong> per conubia nostra, per inceptos himenaeos.</p>
-                                                                <div class="share">
-                                                                    <a href="#" title="#"><i class="fa fa-thumbs-up"></i> 26 likes</a>
-                                                                    <a href="#" title="#"><i class="fa fa-comments"></i> 14 comments</a>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-
-
-                                                        <!-- Comments -->
-                                                        <ul class="simpleListings comments">
-                                                            @*<li class="showComments">
-                                                                <a href="#" title="#"><i class="fa fa-comments"></i> Show <strong>all 21 comments</strong></a>
-                                                            </li>*@
-
-                                                            <li>
-                                                                <a href="#" title="#" class="itemOptions"><i class="fa fa-cog"></i></a>
-                                                                <a href="#" title="#" class="image">
-                                                                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="#" width="44" height="44">
-                                                                </a>
-                                                                <div class="c">
-                                                                    <div class="title"><a href="#" title="#">comment.UserId</a></div>
-                                                                    <div class="info">comment.CreatedAt</div>
-                                                                    <p>comment.Body</p>
-                                                                </div>
-                                                            </li>
-
-                                                        </ul>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
 
+                                                <!-- Posts -->
+                                                <div role="tabpanel" class="tab-pane fade active in list-unstyled" id="@postsTab">
+                                                    <div class="userActivities">
+
+                                                        @foreach (var post in user.Posts.OrderByDescending(c => c.CreatedAt))
+                                                        {
+                                                            <div class="i">
+                                                                <a href="@Url.Action("index", "user", new { id = user.Id })" title="@user.Name" class="image">
+                                                                    <img src="@user.Avatar" alt="#" width="44" height="44">
+                                                                </a>
+                                                                <div class="activityContent">
+                                                                    <ul class="simpleListings status">
+                                                                        <li>
+                                                                            <div class="title">
+                                                                                @Html.ActionLink(post.Title, "index", "post", new { id = post.Id })
+                                                                            </div>
+                                                                            <div class="info">@post.CreatedAt</div>
+                                                                            <p>@post.Body</p>
+                                                                            <div class="share">
+                                                                                <a><i class="glyphicon glyphicon-heart"></i> @post.Likes</a>
+                                                                                <a><i class="glyphicon glyphicon-comment"></i> @post.Comments.Count</a>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+
+                                                                    @foreach (var comment in post.Comments.OrderBy(c => c.CreatedAt))
+                                                                    {
+                                                                        var commentator = Lesson2_ASP.NET.Services.UserService.Instance.GetUser(comment.UserId);
+
+                                                                        <!-- Comments -->
+                                                                        <ul class="simpleListings comments">
+                                                                            <li class="list-unstyled">
+                                                                                <a href="#" title="#" class="image">
+                                                                                    <img src="@commentator.Avatar" alt="avatar" width="44" height="44">
+                                                                                </a>
+
+                                                                                <div class="c">
+                                                                                    <div class="title">@Html.ActionLink(commentator.Name, "index", "user", new { id = commentator.Id })</div>
+                                                                                    <div class="info">@comment.CreatedAt</div>
+                                                                                    <p>@comment.Body</p>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <!-- Show more -->
-                                            <a href="#" title="#" class="btn btn-primary showMore"><i class="fa fa-refresh"></i> Show more</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                }
-
-                <div class="pull-right">
-                    <ul class="pagination pagination-split pagination-sm pagination-contact">
-                        <li class="disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                    </ul>
+                    }
                 </div>
             </div>
         </div>
