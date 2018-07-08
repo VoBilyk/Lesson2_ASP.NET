@@ -1,0 +1,36 @@
+﻿@model User
+
+<div class="userActivities">
+    @if (Model.Posts?.Count == 0)
+    {
+        <p class="text-danger">Haven`t any posts yet.</p>
+    }
+    else
+    {
+        @foreach (var post in Model.Posts.OrderByDescending(c => c.CreatedAt))
+        {
+            <div class="i">
+                <a href="@Url.Action("index", "user", new { id = Model.Id })" title="@Model.Name" class="image">
+                    <img src="@Model.Avatar" alt="#" width="44" height="44">
+                </a>
+                <div class="activityContent">
+                    <ul class="simpleListings status" style="list-style-type:none">
+                        <li>
+                            <div class="title">
+                                @Html.ActionLink(post.Title, "index", "post", new { id = post.Id })
+                            </div>
+                            <div class="info">@post.CreatedAt</div>
+                            <p>@post.Body</p>
+                            <div class="share">
+                                <a><i class="glyphicon glyphicon-heart"></i> @post.Likes</a>
+                                <a><i class="glyphicon glyphicon-comment"></i> @post.Comments.Count</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    @Html.Partial("_Comments", post.Comments)
+                </div>
+            </div>
+        }
+    }
+</div>
