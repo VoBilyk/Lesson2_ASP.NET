@@ -32,7 +32,7 @@
                     </div>
                     <div class="panel-body" align="left">
                         <div class="text-center">
-                            <h3>@Html.ActionLink(Model.Post.Title, "index", "user", new { id = Model.Post.Title })</h3>
+                            <h3>@Html.ActionLink(Model.Post.Title, "index", "post", new { id = Model.Post.Id })</h3>
                             <p>@Model.Post.Body</p> <br />
                             <p class="text-left text-muted">Likes: @Model.Post.Likes</p>
                         </div>

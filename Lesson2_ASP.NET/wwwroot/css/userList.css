@@ -3,6 +3,10 @@ body{
     background:#eee;
 }
 
+.list-type-none ul li {
+ list-style-type: none;
+}
+
 .nav.nav-pills > li > a {
     color: #777;
     border-radius: 0!important;

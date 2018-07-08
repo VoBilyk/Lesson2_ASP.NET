@@ -11,14 +11,6 @@
             <div class="row">
 
                 <div class="col-md-9">
-                    <div class="well">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="text" placeholder="Search people" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <br>
                     <div class="row">
                         <div class="col-md-6">
                             <h3>All Users</h3>
@@ -39,14 +31,14 @@
                                         <img class="img-circle" src="@user.Avatar" alt="avatar">
                                     </div>
                                     <div class="media-body">
-                                        <h4 class="media-heading"><big>@user.Name</big> <small>@user.CreatedAt</small></h4>
+                                        <h4 class="media-heading text-danger"><big>@user.Name</big> <small>@user.CreatedAt</small></h4>
                                         <div class="media-content">
                                             @if (user.Address != null)
                                             {
                                                 <div><i class="glyphicon glyphicon-map-marker"></i> @user.Address.Street, @user.Address.City, @user.Address.Country</div>
                                                 <div><i class="glyphicon glyphicon-envelope"></i> @user.Email</div>
                                             }
-                                            <ul class="list-unstyled">
+                                            <ul class="list-unstyled text-info">
                                                 <li><i class="glyphicon glyphicon-list"></i> todos: @user.Todos.Count</li>
                                                 <li><i class="glyphicon glyphicon-edit"></i> posts: @user.Posts.Count</li>
                                             </ul>
@@ -64,7 +56,7 @@
                                         <div class="box">
                                             <h2 class="boxTitle text-center">Personal information</h2>
                                             <!-- Tabs -->
-                                            <ul class="nav nav-tabs userProfileTabs" role="tablist">
+                                            <ul class="nav nav-tabs userProfileTabs" role="tablist" style="list-style-type:none">
                                                 <li class="" role="presentation"><a href="#@todosTab" aria-controls="@todosTab" role="tab" data-toggle="tab">Todos</a></li>
                                                 <li role="presentation" class="active"><a href="#@postsTab" aria-controls="@postsTab" role="tab" data-toggle="tab">Posts</a></li>
                                             </ul>
@@ -74,26 +66,42 @@
                                                 <br />
                                                 <div role="tabpanel" class="tab-pane fade" id="@todosTab">
                                                     <div class="userProfileContent">
-                                                        <div class="i">
-                                                            <ul class="simpleListings">
+                                                        @if (user.Todos?.Count == 0)
+                                                        {
+                                                            <p class="text-danger">Haven`t any todos yet.</p>
+                                                        }
 
-                                                                @foreach (var todo in user.Todos)
-                                                                {
-                                                                    <li>
-                                                                        <div class="title">@Html.ActionLink(todo.Name, "index", "todo", todo)</div>
-                                                                        <div class="info">@todo.CreatedAt</div>
-                                                                        <p>Completed: @todo.IsComplete</p>
-                                                                    </li>
-                                                                }
+                                                        <ul class="simpleListings" style="list-style-type:none">
+                                                            @foreach (var todo in user.Todos)
+                                                            {
+                                                                <li>
+                                                                    <div class="title">@Html.ActionLink(todo.Name, "index", "todo", todo)</div>
+                                                                    <div class="info">@todo.CreatedAt</div>
 
-                                                            </ul>
-                                                        </div>
+                                                                    @if (todo.IsComplete)
+                                                                    {
+                                                                        <p class="text-success">Completed</p>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        {
+                                                                            <p class="text-danger">Uncompleted</p>
+                                                                        }
+                                                                    }
+                                                                </li>
+                                                            }
+
+                                                        </ul>
                                                     </div>
                                                 </div>
 
                                                 <!-- Posts -->
                                                 <div role="tabpanel" class="tab-pane fade active in list-unstyled" id="@postsTab">
                                                     <div class="userActivities">
+                                                        @if (user.Posts?.Count == 0)
+                                                        {
+                                                            <p class="text-danger">Haven`t any posts yet.</p>
+                                                        }
 
                                                         @foreach (var post in user.Posts.OrderByDescending(c => c.CreatedAt))
                                                         {
@@ -102,7 +110,7 @@
                                                                     <img src="@user.Avatar" alt="#" width="44" height="44">
                                                                 </a>
                                                                 <div class="activityContent">
-                                                                    <ul class="simpleListings status">
+                                                                    <ul class="simpleListings status" style="list-style-type:none">
                                                                         <li>
                                                                             <div class="title">
                                                                                 @Html.ActionLink(post.Title, "index", "post", new { id = post.Id })
@@ -121,7 +129,7 @@
                                                                         var commentator = Lesson2_ASP.NET.Services.UserService.Instance.GetUser(comment.UserId);
 
                                                                         <!-- Comments -->
-                                                                        <ul class="simpleListings comments">
+                                                                        <ul class="simpleListings comments" style="list-style-type:none">
                                                                             <li class="list-unstyled">
                                                                                 <a href="#" title="#" class="image">
                                                                                     <img src="@commentator.Avatar" alt="avatar" width="44" height="44">
